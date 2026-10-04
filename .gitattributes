@@ -1,0 +1,15 @@
+# Keep LF line endings in the repository and in working copies on every OS.
+# Prettier formats with LF, and shell scripts (the Husky hook) break with CRLF.
+* text=auto eol=lf
+
+# Binary files: never touch line endings.
+*.ico binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.avif binary
+*.woff binary
+*.woff2 binary
+*.pdf binary

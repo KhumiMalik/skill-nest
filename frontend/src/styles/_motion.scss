@@ -1,0 +1,25 @@
+/* ---------- Reveal animation ----------
+   Elements are only hidden once RevealOnScroll adds `js-reveal` to <html>,
+   so content is always visible without JavaScript or with reduced motion. */
+.js-reveal .reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease;
+}
+.js-reveal .reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

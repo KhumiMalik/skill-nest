@@ -1,0 +1,4 @@
+cd frontend
+# Split long file lists into batches: on Windows, commands run through cmd.exe, which
+# rejects command lines over 8191 characters (e.g. when committing 100+ files at once).
+npx lint-staged --max-arg-length 7000

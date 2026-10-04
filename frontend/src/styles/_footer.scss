@@ -1,0 +1,109 @@
+/* ---------- Footer ---------- */
+.site-footer {
+  background: var(--color-dark);
+  color: rgba(255, 255, 255, 0.85);
+  padding-top: 70px;
+  font-size: 1.1rem;
+}
+.site-footer h2 {
+  color: #fff;
+  font-size: 1.25rem;
+  margin-bottom: 22px;
+  font-family: var(--font-body);
+}
+.site-footer .logo {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 2.2rem;
+  margin-bottom: 40px;
+}
+.site-footer address {
+  margin-bottom: 14px;
+  line-height: 1.8;
+}
+.site-footer .contact-line strong {
+  color: #fff;
+}
+.site-footer ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.site-footer ul li {
+  padding: 7px 0;
+}
+.site-footer ul a {
+  color: rgba(255, 255, 255, 0.85);
+}
+.site-footer ul a:hover,
+.site-footer .contact-line a:hover {
+  color: var(--color-primary-on-dark);
+}
+.site-footer .social-links {
+  justify-content: flex-start;
+  gap: 12px;
+  margin-top: 30px;
+}
+.site-footer .social-links a {
+  width: 50px;
+  height: 50px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  color: #fff;
+  font-size: 1.15rem;
+}
+.site-footer .social-links a:hover {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+}
+.site-footer .copyright {
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 30px 0;
+  margin-top: 60px;
+  text-align: center;
+  font-size: 1.05rem;
+  color: #fff;
+}
+
+/* ---------- Scroll top ---------- */
+.scroll-top {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  width: 50px;
+  height: 50px;
+  border-radius: 4px;
+  background: var(--color-primary);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s;
+  z-index: 99;
+}
+.scroll-top.show {
+  opacity: 1;
+  visibility: visible;
+}
+.scroll-top:hover {
+  background: var(--color-primary-dark);
+  color: #fff;
+}
+
+.site-footer .contact-line a {
+  color: rgba(255, 255, 255, 0.85);
+}
+.site-footer .social-links {
+  padding: 0;
+  list-style: none;
+}
+.site-footer .social-links li {
+  padding: 0;
+}
+.scroll-top .icon {
+  width: 1.6rem;
+  height: 1.6rem;
+}

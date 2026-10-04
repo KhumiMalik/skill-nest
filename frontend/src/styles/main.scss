@@ -1,0 +1,35 @@
+// Bootstrap: only the modules the site uses (grid, forms, utilities...), with our colours.
+@import "bootstrap/scss/functions";
+
+$primary: #0c7f56;
+$body-color: #3d4348;
+$body-bg: #f3f6f5;
+$font-family-sans-serif: var(--font-body);
+$link-decoration: none;
+$enable-smooth-scroll: true;
+
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/maps";
+@import "bootstrap/scss/mixins";
+@import "bootstrap/scss/utilities";
+@import "bootstrap/scss/root";
+@import "bootstrap/scss/reboot";
+@import "bootstrap/scss/type";
+@import "bootstrap/scss/images";
+@import "bootstrap/scss/containers";
+@import "bootstrap/scss/grid";
+@import "bootstrap/scss/forms";
+@import "bootstrap/scss/alert";
+@import "bootstrap/scss/nav";
+@import "bootstrap/scss/helpers";
+@import "bootstrap/scss/utilities/api";
+
+// Site styles (ported from the HTML template).
+@import "tokens";
+@import "base";
+@import "header";
+@import "page-banner";
+@import "home";
+@import "components";
+@import "footer";
+@import "motion";
