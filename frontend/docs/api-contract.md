@@ -30,8 +30,11 @@ List endpoints accept `page` (default 1) and `pageSize` (default 9, max 50) and 
 Every non-2xx response has this body:
 
 ```json
-{ "message": "Human-readable summary" }
+{ "message": "Human-readable summary", "requestId": "8e15b983-c412-466e-834d-b6bd7837cafb" }
 ```
+
+`requestId` (also sent as the `X-Request-Id` header on every response) identifies the request in the backend logs.
+Clients may ignore it.
 
 | Status | When                                      | Extra fields                              |
 | ------ | ----------------------------------------- | ----------------------------------------- |
@@ -267,16 +270,18 @@ type Notice = NoticeSummary & {
 #### `GET /notices?category=&q=&page=&pageSize=`
 
 - `category` (optional): a `NoticeCategory`. `q` (optional, max 100 characters): matches title and summary.
-- **200:** `Paginated<NoticeSummary>`: important notices first, then newest first. Expired notices should not be
-  returned.
+- **200:** `Paginated<NoticeSummary>`: published notices only (no drafts, scheduled or expired ones), important
+  first, then newest first.
 - **422:** invalid query.
 - **Cache tag:** `notices` (the frontend also refreshes notice lists every few minutes without a webhook, because
   notices can be urgent)
 
 #### `GET /notices/{slug}`
 
-- **200:** `Notice`. **404:** unknown slug.
+- **200:** `Notice`. Expired notices are still returned, so old links keep working. **404:** unknown slug, a draft
+  or a scheduled notice.
 - **Cache tags:** `notices`, `notice:{slug}`
+- **Implemented** in the Laravel backend (`backend/`), which also has the admin CRUD (see `backend/README.md`).
 
 ### Events
 

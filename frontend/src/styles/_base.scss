@@ -1,6 +1,9 @@
 /* ---------- Base ---------- */
 html {
   scroll-behavior: smooth;
+  // The header is fixed: anything the browser scrolls to (anchor links, focused error messages and
+  // fields) stops below it instead of underneath it.
+  scroll-padding-top: calc(var(--header-height) + 16px);
 }
 
 body {
@@ -30,6 +33,12 @@ a {
 a:hover {
   color: var(--color-primary-dark);
 }
+// Links inside a sentence are underlined, so they aren't told apart from the text by colour alone
+// (WCAG 1.4.1, axe "link-in-text-block"). Button-like links keep their own style.
+p > a:not([class*="btn"], .link-arrow) {
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
 
 img {
   max-width: 100%;
@@ -48,7 +57,6 @@ main:focus {
 .section {
   padding: 90px 0;
   overflow: hidden;
-  scroll-margin-top: var(--header-height);
 }
 .section-alt {
   background: var(--color-bg-alt);
@@ -206,7 +214,9 @@ main:focus {
 }
 
 /* ---------- Accessibility ---------- */
-:focus-visible {
+:focus-visible,
+// Browsers don't match :focus-visible on iframes (the contact map), so they get the outline on :focus.
+iframe:focus {
   outline: 3px solid var(--color-focus);
   outline-offset: 2px;
 }

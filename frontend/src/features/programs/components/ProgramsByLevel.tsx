@@ -1,5 +1,5 @@
 import { type TabItem, Tabs } from "@/components/ui/Tabs";
-import { PROGRAM_LEVEL_LABELS, PROGRAM_LEVELS } from "../schemas";
+import { PROGRAM_LEVEL_LABELS, PROGRAM_LEVELS } from "../constants";
 import type { ProgramSummary } from "../types";
 import { ProgramMediaCard } from "./ProgramMediaCard";
 

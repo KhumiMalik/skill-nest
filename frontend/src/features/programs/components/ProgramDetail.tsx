@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Icon, type IconName } from "@/components/ui/Icon";
-import { PROGRAM_LEVEL_LABELS } from "../schemas";
+import { PROGRAM_LEVEL_LABELS } from "../constants";
 import type { Program, ProgramSummary } from "../types";
 
 type ProgramDetailProps = {

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useId, useRef, useState } from "react";
 import type { NavItem, NavLink } from "@/config/site";
-import { Icon } from "@/components/ui/Icon";
+import { ClientIcon } from "@/components/ui/ClientIcon";
 
 function isCurrent(href: string, pathname: string) {
   return href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(`${href}/`);
@@ -87,7 +87,7 @@ export function Header({ siteName, nav }: HeaderProps) {
     <header className={classes.join(" ")}>
       <div className="container-xl d-flex align-items-center justify-content-between">
         <Link href="/" className="logo">
-          <Icon name="buildings" />
+          <ClientIcon name="buildings" />
           <span>{siteName}</span>
         </Link>
 
@@ -131,7 +131,7 @@ export function Header({ siteName, nav }: HeaderProps) {
           aria-label={mobileOpen ? "Close menu" : "Open menu"}
           onClick={() => setMobileOpen((open) => !open)}
         >
-          <Icon name={mobileOpen ? "x-lg" : "list"} />
+          <ClientIcon name={mobileOpen ? "x-lg" : "list"} />
         </button>
       </div>
     </header>
@@ -180,7 +180,7 @@ function DropdownItem({ label, links, pathname, open, onToggle, onBlurOutside }:
         data-dropdown={label}
         onClick={onToggle}
       >
-        <span>{label}</span> <Icon name="chevron-down" />
+        <span>{label}</span> <ClientIcon name="chevron-down" />
       </button>
       <ul id={menuId}>
         {links.map((link) => (

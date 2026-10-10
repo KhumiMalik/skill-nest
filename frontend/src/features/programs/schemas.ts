@@ -1,16 +1,10 @@
 import { z } from "zod";
 import { imageSchema, slugSchema } from "@/lib/api/schemas";
+import { PROGRAM_LEVELS } from "./constants";
 
-/** School stages, in the order pupils move through them. */
-export const PROGRAM_LEVELS = ["early-years", "primary", "secondary", "sixth-form"] as const;
+export { PROGRAM_LEVEL_LABELS, PROGRAM_LEVELS } from "./constants";
+
 export const programLevelSchema = z.enum(PROGRAM_LEVELS);
-
-export const PROGRAM_LEVEL_LABELS: Record<z.infer<typeof programLevelSchema>, string> = {
-  "early-years": "Early Years",
-  primary: "Primary",
-  secondary: "Secondary",
-  "sixth-form": "Sixth Form",
-};
 
 /** Returned by GET /programs (list). */
 export const programSummarySchema = z.object({

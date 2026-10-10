@@ -1,3 +1,4 @@
+import { IconSvg } from "./IconSvg";
 import { ICONS, type IconName } from "./icons.generated";
 
 type IconProps = {
@@ -7,20 +8,13 @@ type IconProps = {
   label?: string;
 };
 
-/** Inline SVG icon from the generated Bootstrap Icons subset. */
+/**
+ * Inline SVG icon from the generated Bootstrap Icons subset. For Server Components: it imports every
+ * icon, which is free on the server but would add ~18 KB to the browser bundle. Client Components
+ * use ClientIcon instead.
+ */
 export function Icon({ name, className, label }: IconProps) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 16 16"
-      fill="currentColor"
-      className={className ? `icon ${className}` : "icon"}
-      focusable="false"
-      {...(label ? { role: "img", "aria-label": label } : { "aria-hidden": true })}
-      // The markup comes from a generated, trusted file, never from user input.
-      dangerouslySetInnerHTML={{ __html: ICONS[name] }}
-    />
-  );
+  return <IconSvg markup={ICONS[name]} className={className} label={label} />;
 }
 
 /**

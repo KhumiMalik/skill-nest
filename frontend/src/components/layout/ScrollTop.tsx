@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Icon } from "@/components/ui/Icon";
+import { ClientIcon } from "@/components/ui/ClientIcon";
 
 export function ScrollTop() {
   const [visible, setVisible] = useState(false);
@@ -26,7 +26,7 @@ export function ScrollTop() {
       tabIndex={visible ? 0 : -1}
       onClick={scrollToTop}
     >
-      <Icon name="arrow-up-short" />
+      <ClientIcon name="arrow-up-short" />
     </button>
   );
 }

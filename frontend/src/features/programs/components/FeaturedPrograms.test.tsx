@@ -3,6 +3,7 @@ import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
 import type { ProgramSummary } from "../types";
 import { FeaturedPrograms } from "./FeaturedPrograms";
+import { ProgramCard } from "./ProgramCard";
 
 function program(slug: string, title: string, level: ProgramSummary["level"]): ProgramSummary {
   return {
@@ -24,9 +25,12 @@ const programs = [
   program("gcse-programme", "GCSE Programme", "secondary"),
 ];
 
+// In the app the section renders the cards on the server and passes them in; here we do the same.
+const items = programs.map((p) => ({ slug: p.slug, level: p.level, card: <ProgramCard program={p} /> }));
+
 describe("FeaturedPrograms", () => {
   it("shows all programs and only the stages that have programs", () => {
-    render(<FeaturedPrograms programs={programs} />);
+    render(<FeaturedPrograms items={items} />);
     const group = screen.getByRole("group", { name: "Filter programs by stage" });
     expect(
       within(group)
@@ -38,7 +42,7 @@ describe("FeaturedPrograms", () => {
 
   it("filters by stage with toggle buttons", async () => {
     const user = userEvent.setup();
-    render(<FeaturedPrograms programs={programs} />);
+    render(<FeaturedPrograms items={items} />);
 
     await user.click(screen.getByRole("button", { name: "Secondary" }));
     expect(screen.getByRole("button", { name: "Secondary" })).toHaveAttribute("aria-pressed", "true");

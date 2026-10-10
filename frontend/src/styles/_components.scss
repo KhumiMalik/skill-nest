@@ -210,14 +210,14 @@
   gap: 30px;
   margin-top: 26px;
 }
-.mini-stats div strong {
+.mini-stats > * strong {
   display: block;
   font-family: var(--font-heading);
   font-size: 2rem;
   color: var(--color-primary);
   line-height: 1.1;
 }
-.mini-stats div span {
+.mini-stats > * > span {
   font-size: 0.95rem;
   color: var(--color-muted);
 }
@@ -239,6 +239,7 @@
   object-fit: cover;
   margin-bottom: 16px;
 }
+.testimonial h3,
 .testimonial h4 {
   font-size: 1.25rem;
   margin: 16px 0 2px;
@@ -417,7 +418,8 @@
   color: #fff;
 }
 .cta-band p {
-  color: rgba(255, 255, 255, 0.88);
+  // Solid white: 88% white was 4.3:1 on the lighter end of the gradient (AA needs 4.5:1).
+  color: #fff;
 }
 
 /* ---------- Tabs ---------- */
@@ -454,7 +456,7 @@
 .highlight:last-child {
   margin-bottom: 0;
 }
-.highlight h4 {
+.highlight .highlight-label {
   font-size: 1.15rem;
   margin: 0 0 4px;
 }
@@ -476,32 +478,26 @@
   display: block;
   transition: transform 0.4s;
 }
+// Unlike the template, the title is always shown: text that only appears on hover can't be read on touch screens.
 .gallery-tile .overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(transparent 40%, rgba(0, 0, 0, 0.8));
+  background: linear-gradient(transparent 45%, rgba(0, 0, 0, 0.75));
   color: #fff;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   padding: 18px;
-  opacity: 0;
-  transition: opacity 0.3s;
 }
-.gallery-tile .overlay h4 {
+.gallery-tile .overlay-title {
   color: #fff;
+  font-family: var(--font-heading);
+  font-weight: 700;
   font-size: 1.05rem;
-  margin: 0;
 }
-.gallery-tile .overlay span {
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.85);
-}
-.gallery-tile:hover img {
+.gallery-tile:hover img,
+.gallery-tile:focus-visible img {
   transform: scale(1.06);
-}
-.gallery-tile:hover .overlay {
-  opacity: 1;
 }
 
 /* ---------- Map placeholder ---------- */
@@ -567,8 +563,9 @@
   padding: 28px;
   margin-bottom: 30px;
 }
-.sidebar-box h2,
-.sidebar-box h3 {
+// Only the box's own title: headings inside its content (post titles...) keep their own styles.
+.sidebar-box > h2,
+.sidebar-box > h3 {
   font-size: 1.3rem;
   padding-bottom: 12px;
   margin-bottom: 18px;
@@ -609,15 +606,15 @@
   border-radius: 6px;
   flex-shrink: 0;
 }
-.mini-post h4 {
+.mini-post h3 {
   font-size: 1rem;
   margin: 0 0 4px;
   line-height: 1.4;
 }
-.mini-post h4 a {
+.mini-post h3 a {
   color: var(--color-heading);
 }
-.mini-post span {
+.mini-post time {
   font-size: 0.88rem;
   color: var(--color-muted);
 }
@@ -709,7 +706,7 @@
   padding: 22px 26px;
   margin: 26px 0;
 }
-.toc h3 {
+.toc h2 {
   font-size: 1.15rem;
 }
 .toc ol {
@@ -765,7 +762,7 @@
   border-radius: 50%;
   object-fit: cover;
 }
-.author-box h4 {
+.author-box .author-name {
   font-size: 1.2rem;
   margin: 0 0 4px;
 }

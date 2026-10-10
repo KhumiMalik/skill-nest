@@ -1,4 +1,5 @@
-// Bootstrap: only the modules the site uses (grid, forms, utilities...), with our colours.
+// Bootstrap: only the parts the site uses, with our colours. The stylesheet blocks the first paint,
+// so every unused rule costs time on slow phones: this keeps it at roughly half of full Bootstrap.
 @import "bootstrap/scss/functions";
 
 $primary: #0c7f56;
@@ -12,16 +13,66 @@ $enable-smooth-scroll: true;
 @import "bootstrap/scss/maps";
 @import "bootstrap/scss/mixins";
 @import "bootstrap/scss/utilities";
+
+// Generate only the utility classes the components use (Bootstrap generates hundreds, most of them
+// at every breakpoint). Using a utility that isn't listed here means adding it to this list.
+$utilities: map-get-multiple(
+  $utilities,
+  (
+    "align-items",
+    "border",
+    "display",
+    "flex-direction",
+    "flex-wrap",
+    "gap",
+    "height",
+    "justify-content",
+    "margin",
+    "margin-x",
+    "margin-y",
+    "margin-top",
+    "margin-bottom",
+    "overflow",
+    "padding",
+    "padding-top",
+    "padding-bottom",
+    "text-align",
+    "word-wrap",
+    "width"
+  )
+);
+// Only padding is used with a breakpoint (p-lg-5); everything else needs just the base class.
+@each $name, $utility in $utilities {
+  @if $name != "padding" {
+    $utilities: map-merge(
+      $utilities,
+      (
+        $name: map-merge(
+            $utility,
+            (
+              responsive: false,
+              print: false,
+            )
+          ),
+      )
+    );
+  }
+}
+
 @import "bootstrap/scss/root";
 @import "bootstrap/scss/reboot";
 @import "bootstrap/scss/type";
-@import "bootstrap/scss/images";
 @import "bootstrap/scss/containers";
 @import "bootstrap/scss/grid";
-@import "bootstrap/scss/forms";
-@import "bootstrap/scss/alert";
+// Forms without validation states, input groups, floating labels or range sliders (not used).
+@import "bootstrap/scss/forms/labels";
+@import "bootstrap/scss/forms/form-text";
+@import "bootstrap/scss/forms/form-control";
+@import "bootstrap/scss/forms/form-select";
+@import "bootstrap/scss/forms/form-check";
 @import "bootstrap/scss/nav";
-@import "bootstrap/scss/helpers";
+@import "bootstrap/scss/helpers/stretched-link";
+@import "bootstrap/scss/helpers/visually-hidden";
 @import "bootstrap/scss/utilities/api";
 
 // Site styles (ported from the HTML template).
@@ -31,5 +82,8 @@ $enable-smooth-scroll: true;
 @import "page-banner";
 @import "home";
 @import "components";
+@import "listings";
+@import "pages";
+@import "forms";
 @import "footer";
 @import "motion";
