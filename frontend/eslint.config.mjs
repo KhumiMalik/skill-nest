@@ -38,6 +38,24 @@ const eslintConfig = defineConfig([
     rules: { "no-restricted-imports": ["error", { patterns: [featureBoundary] }] },
   },
   {
+    // Mocks may import a feature's schemas.ts (pure Zod: enums, validation) but nothing else from it.
+    // Going through the feature's index.ts would be circular: index -> data.ts -> lib/api -> mocks.
+    files: ["src/mocks/**/*.ts"],
+    rules: {
+      "no-restricted-imports": [
+        "error",
+        {
+          patterns: [
+            {
+              group: ["@/features/*/*", "!@/features/*/schemas"],
+              message: "Mocks may only import a feature's schemas.ts directly (and types from its index.ts).",
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
     // Tests may reach into internals.
     files: ["**/*.test.{ts,tsx}", "e2e/**/*.ts"],
     rules: { "no-restricted-imports": "off" },

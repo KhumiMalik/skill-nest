@@ -1,3 +1,4 @@
+import type { NavLink } from "@/config/site";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { SiteShell } from "@/components/layout/SiteShell";
@@ -8,7 +9,7 @@ export const metadata: Metadata = {
   robots: { index: false },
 };
 
-const SUGGESTIONS = [
+const SUGGESTIONS: NavLink[] = [
   { href: "/", label: "Home" },
   { href: "/admissions", label: "Admissions" },
   { href: "/news", label: "News" },

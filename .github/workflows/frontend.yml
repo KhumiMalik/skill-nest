@@ -14,7 +14,7 @@ defaults:
 jobs:
   check:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 35
     steps:
       - uses: actions/checkout@v4
 
@@ -46,6 +46,17 @@ jobs:
 
       - name: End-to-end tests
         run: npm run e2e
+
+      # Mobile Lighthouse audit (scripts/lighthouse.mjs): accessibility, best practices and SEO must be 90+.
+      # Performance needs 80+ here: shared CI runners are slower and noisier than a real phone or a
+      # quiet workstation, where the target is 90+ (see docs/architecture.md, "Performance").
+      - name: Lighthouse
+        env:
+          LH_MIN_PERFORMANCE: "0.8"
+        run: |
+          npm start -- --port 3100 &
+          for i in $(seq 1 30); do curl -sf -o /dev/null http://localhost:3100 && break; sleep 2; done
+          npm run lighthouse
 
       - name: Upload Playwright report
         if: failure()

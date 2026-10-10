@@ -2,12 +2,14 @@ import type { Metadata } from "next";
 import { PageBanner } from "@/components/layout/PageBanner";
 import { getFaculty, LEADERSHIP_DEPARTMENT, TeamSection } from "@/features/faculty";
 import { getAboutPage, HeadMessageSection, HistorySection } from "@/features/page-content";
+import { pageMetadata } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "About Us",
   description:
     "Founded in 1974, Greenfield Academy is an independent day school for ages 3 to 18. Discover our history, mission and values, and meet our leadership team.",
-};
+  path: "/about",
+});
 
 export default async function AboutPage() {
   const [about, leadership] = await Promise.all([

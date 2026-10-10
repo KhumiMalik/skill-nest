@@ -10,11 +10,22 @@ import {
   WelcomeSection,
 } from "@/features/page-content";
 import { FeaturedProgramsSection, getPrograms } from "@/features/programs";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { siteConfig } from "@/config/site";
+import { schoolJsonLd } from "@/lib/seo/json-ld";
+import { baseOpenGraph, DEFAULT_OG_IMAGE } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = {
   // The root layout's default title ("Greenfield Academy") is used for the home page.
   description: siteConfig.description,
+  alternates: { canonical: "/" },
+  openGraph: {
+    ...baseOpenGraph,
+    images: [DEFAULT_OG_IMAGE],
+    title: siteConfig.name,
+    description: siteConfig.description,
+    url: "/",
+  },
 };
 
 /**
@@ -31,6 +42,7 @@ export default async function HomePage() {
 
   return (
     <>
+      <JsonLd data={schoolJsonLd()} />
       <HomeHero hero={content.hero} highlights={content.highlights}>
         <EventStrip events={events.slice(0, 3)} />
       </HomeHero>

@@ -12,12 +12,14 @@ import {
   parseFacultyFilters,
   StaffIndex,
 } from "@/features/faculty";
+import { pageMetadata } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Faculty & Staff",
   description:
     "Meet the teachers and staff of Greenfield Academy. Search the staff directory by name, role, subject or department.",
-};
+  path: "/faculty",
+});
 
 /**
  * The banner, intro and departments are prerendered (static shell). The directory depends on

@@ -25,6 +25,11 @@ if (process.env.API_BASE_URL) {
  * Nonces would force every page to render per request, which defeats static
  * rendering and caching, so we use a strict static policy instead. Next.js injects
  * small inline bootstrap scripts, which is why script-src needs 'unsafe-inline'.
+ *
+ * Experimental SRI (`experimental.sri`) was evaluated in Phase 8: it adds integrity hashes to the
+ * external script files, but Next.js's ~30 inline scripts per page (the page data for hydration)
+ * have no hash, so without 'unsafe-inline' the browser blocks them and the page never hydrates.
+ * It can't remove 'unsafe-inline', so it isn't enabled.
  */
 const csp = [
   "default-src 'self'",
@@ -52,6 +57,8 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   cacheComponents: true,
+  // Type-checks every next/link href against the app's routes (typos become build errors).
+  typedRoutes: true,
   poweredByHeader: false,
   images: { remotePatterns },
   sassOptions: {

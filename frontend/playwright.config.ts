@@ -24,7 +24,15 @@ export default defineConfig({
   webServer: {
     command: `npm run start -- --port ${PORT}`,
     url: baseURL,
-    reuseExistingServer: !process.env.CI,
+    // Always start a fresh server with the env below. Reusing one started by hand (without these
+    // settings) made the form tests fail with "That was quick!" spam errors.
+    reuseExistingServer: false,
+    // Tests submit forms within milliseconds and many times in a row; production keeps the defaults.
+    env: {
+      FORM_MIN_FILL_MS: "0",
+      FORM_RATE_LIMIT: "1000",
+      REVALIDATE_SECRET: "e2e-revalidate-secret-0123456789abcdef",
+    },
     timeout: 120_000,
   },
 });

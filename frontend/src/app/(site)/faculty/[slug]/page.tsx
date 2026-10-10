@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { PageBanner } from "@/components/layout/PageBanner";
 import { FacultyProfile, getFaculty, getFacultyMember, TeamSection } from "@/features/faculty";
+import { pageMetadata } from "@/lib/seo/metadata";
 
 /**
  * A "blocking route": slugs that were not prerendered (content added after the build, or a
@@ -20,7 +21,12 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps<"/faculty/[slug]">): Promise<Metadata> {
   const member = await getFacultyMember((await params).slug);
   if (!member) return { title: "Staff member not found" };
-  return { title: `${member.name}, ${member.role}`, description: member.shortBio };
+  return pageMetadata({
+    title: `${member.name}, ${member.role}`,
+    description: member.shortBio,
+    path: `/faculty/${member.slug}`,
+    openGraph: { type: "profile" },
+  });
 }
 
 export default async function FacultyMemberPage({ params }: PageProps<"/faculty/[slug]">) {

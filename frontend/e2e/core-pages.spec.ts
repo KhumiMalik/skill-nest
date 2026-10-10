@@ -47,7 +47,8 @@ test.describe("home page", () => {
     await expect(page.getByRole("heading", { name: "Upcoming Events" })).toBeVisible();
     await expect(page.locator(".event-strip li")).toHaveCount(3);
 
-    const cards = page.locator("#featured-programs article");
+    // Filtered-out cards stay in the page with the hidden attribute, so count the visible ones.
+    const cards = page.locator("#featured-programs article:visible");
     const all = await cards.count();
     await page.getByRole("button", { name: "Sixth Form" }).click();
     await expect(page.getByRole("button", { name: "Sixth Form" })).toHaveAttribute("aria-pressed", "true");
