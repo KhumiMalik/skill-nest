@@ -1,6 +1,9 @@
+import type { Route } from "next";
 import Link from "next/link";
+import { breadcrumbJsonLd } from "@/lib/seo/json-ld";
+import { JsonLd } from "../seo/JsonLd";
 
-export type Breadcrumb = { label: string; href?: string };
+export type Breadcrumb = { label: string; href?: Route };
 
 type PageBannerProps = {
   title: string;
@@ -9,7 +12,7 @@ type PageBannerProps = {
   breadcrumbs?: Breadcrumb[];
 };
 
-/** Dark title band at the top of every inner page, with breadcrumbs. */
+/** Dark title band at the top of every inner page, with breadcrumbs (also as BreadcrumbList structured data). */
 export function PageBanner({ title, description, breadcrumbs = [{ label: title }] }: PageBannerProps) {
   const trail: Breadcrumb[] = [{ label: "Home", href: "/" }, ...breadcrumbs];
 
@@ -34,6 +37,7 @@ export function PageBanner({ title, description, breadcrumbs = [{ label: title }
             })}
           </ol>
         </nav>
+        <JsonLd data={breadcrumbJsonLd(trail)} />
       </div>
     </div>
   );

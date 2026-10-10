@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { PageBanner } from "@/components/layout/PageBanner";
 import { getProgram, getPrograms, ProgramDetail } from "@/features/programs";
+import { pageMetadata } from "@/lib/seo/metadata";
 
 /**
  * A "blocking route": slugs that were not prerendered (content added after the build, or a
@@ -20,7 +21,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps<"/programs/[slug]">): Promise<Metadata> {
   const program = await getProgram((await params).slug);
   if (!program) return { title: "Program not found" };
-  return { title: program.title, description: program.summary };
+  return pageMetadata({ title: program.title, description: program.summary, path: `/programs/${program.slug}` });
 }
 
 export default async function ProgramPage({ params }: PageProps<"/programs/[slug]">) {
