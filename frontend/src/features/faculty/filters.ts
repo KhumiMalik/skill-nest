@@ -1,3 +1,4 @@
+import type { Route } from "next";
 import { z } from "zod";
 import { slugSchema } from "@/lib/api/schemas";
 import { pageParam, type SearchParams, searchParam, toQueryString } from "@/lib/search-params";
@@ -19,6 +20,6 @@ export function parseFacultyFilters(searchParams: SearchParams): FacultyFilters 
 }
 
 /** The directory URL for a set of filters. */
-export function facultyHref(filters: Partial<FacultyFilters>): string {
+export function facultyHref(filters: Partial<FacultyFilters>): Route {
   return `/faculty${toQueryString({ department: filters.department, q: filters.q, page: filters.page })}`;
 }

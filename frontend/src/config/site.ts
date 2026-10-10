@@ -1,6 +1,16 @@
+import type { Route } from "next";
 import { publicEnv } from "./public-env";
 
-export type NavLink = { label: string; href: string };
+/** The school's postal address. Structured for JSON-LD; `addressLines` below is for display. */
+const address = {
+  street: "42 Meadow Lane",
+  locality: "Greenfield",
+  postalCode: "GF1 2AB",
+  /** ISO 3166-1 country code. */
+  country: "GB",
+};
+
+export type NavLink = { label: string; href: Route };
 export type NavItem = NavLink | { label: string; children: NavLink[] };
 
 export const siteConfig = {
@@ -10,14 +20,18 @@ export const siteConfig = {
     "Greenfield Academy is an independent day school offering primary, secondary and sixth-form education with a focus on curiosity, character and community.",
   url: publicEnv.NEXT_PUBLIC_SITE_URL,
   locale: "en-GB",
+  /** Currency of fees shown on the site (ISO 4217). */
+  currency: "GBP",
   /** All dates and times on the site are shown in this IANA time zone. */
   timeZone: "UTC",
   foundedYear: 1974,
   contact: {
-    addressLines: ["42 Meadow Lane", "Greenfield, GF1 2AB"],
+    address,
+    addressLines: [address.street, `${address.locality}, ${address.postalCode}`],
     phone: "+44 20 7946 0321",
     email: "info@greenfield-academy.example",
     admissionsEmail: "admissions@greenfield-academy.example",
+    recruitmentEmail: "recruitment@greenfield-academy.example",
     hours: ["Mon - Fri: 8:00 am - 5:00 pm", "Sat: 9:00 am - 1:00 pm"],
     /** Map centre for the OpenStreetMap embed on the contact page. */
     map: { lat: 51.5072, lon: -0.1276 },

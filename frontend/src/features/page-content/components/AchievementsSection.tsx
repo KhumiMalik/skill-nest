@@ -1,3 +1,4 @@
+import type { Route } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Icon, toIconName } from "@/components/ui/Icon";
@@ -42,7 +43,8 @@ export function AchievementsSection({ achievements }: { achievements: HomePage["
           <ul className="row g-4 mt-5 pt-4 list-unstyled">
             {achievements.links.map((link) => (
               <li className="col-lg-4 reveal" key={link.href}>
-                <Link href={link.href} className="overlay-card">
+                {/* A site path from the API, already validated by sitePathSchema. */}
+                <Link href={link.href as Route} className="overlay-card">
                   <Image
                     src={link.image.src}
                     alt=""

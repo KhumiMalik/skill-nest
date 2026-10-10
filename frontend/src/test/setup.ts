@@ -21,3 +21,16 @@ if (!window.matchMedia) {
       dispatchEvent: () => false,
     }) satisfies MediaQueryList;
 }
+
+// jsdom has no <dialog> methods. Minimal versions: open/close toggle the `open` attribute, and
+// close() fires the "close" event like a browser (Escape in a browser also ends in close()).
+if (!HTMLDialogElement.prototype.showModal) {
+  HTMLDialogElement.prototype.showModal = function showModal(this: HTMLDialogElement) {
+    this.setAttribute("open", "");
+  };
+  HTMLDialogElement.prototype.close = function close(this: HTMLDialogElement) {
+    if (!this.hasAttribute("open")) return;
+    this.removeAttribute("open");
+    this.dispatchEvent(new Event("close"));
+  };
+}

@@ -1,3 +1,4 @@
+import type { Route } from "next";
 import Link from "next/link";
 import { Icon } from "./Icon";
 
@@ -25,7 +26,7 @@ type PaginationProps = {
   page: number;
   totalPages: number;
   /** Builds the link for a page, keeping the current filters. */
-  hrefForPage: (page: number) => string;
+  hrefForPage: (page: number) => Route;
 };
 
 /** Page links for server-rendered lists. Every page is a real URL, so it works without JavaScript. */

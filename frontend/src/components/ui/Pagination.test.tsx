@@ -1,3 +1,4 @@
+import type { Route } from "next";
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { getPageItems, Pagination } from "./Pagination";
@@ -16,7 +17,7 @@ describe("getPageItems", () => {
 });
 
 describe("Pagination", () => {
-  const hrefForPage = (page: number) => `/faculty?page=${page}`;
+  const hrefForPage = (page: number): Route => `/faculty?page=${page}`;
 
   it("renders nothing for a single page", () => {
     const { container } = render(<Pagination page={1} totalPages={1} hrefForPage={hrefForPage} />);
