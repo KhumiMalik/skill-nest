@@ -2,6 +2,7 @@ import { cacheLife } from "next/cache";
 import Link from "next/link";
 import { footerNav, siteConfig } from "@/config/site";
 import { Icon } from "@/components/ui/Icon";
+import { NewsletterForm } from "@/features/newsletter";
 
 /**
  * The year comes from a cached component: reading the clock during prerender is not
@@ -61,6 +62,20 @@ export function Footer() {
             </nav>
           ))}
         </div>
+
+        <section className="footer-newsletter" aria-labelledby="newsletter-title">
+          <div className="row align-items-center gy-3">
+            <div className="col-lg-5">
+              <h2 id="newsletter-title" className="h4">
+                Newsletter
+              </h2>
+              <p className="mb-0">News, events and term dates once a month. Unsubscribe at any time.</p>
+            </div>
+            <div className="col-lg-7">
+              <NewsletterForm />
+            </div>
+          </div>
+        </section>
       </div>
       <div className="copyright">
         <div className="container">

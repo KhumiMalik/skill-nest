@@ -1,0 +1,158 @@
+// Phase 6 forms: fields, errors, the error summary, success messages and the newsletter.
+
+.form-label {
+  font-weight: 700;
+  color: var(--color-heading);
+  margin-bottom: 6px;
+}
+.form-label .optional {
+  font-weight: 400;
+  color: var(--color-muted);
+}
+.field-hint {
+  margin: -2px 0 6px;
+  font-size: 0.92rem;
+  color: var(--color-muted);
+}
+.field-error {
+  margin: 0 0 6px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--color-error);
+}
+// Not Bootstrap's .is-invalid: the attribute is what screen readers announce, so style that.
+.form-control[aria-invalid="true"],
+.form-select[aria-invalid="true"],
+.form-check-input[aria-invalid="true"] {
+  border-color: var(--color-error);
+  border-width: 2px;
+}
+.form-legend {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--color-heading);
+  margin-bottom: 4px;
+}
+.form-check {
+  margin-bottom: 8px;
+}
+.form-check-input {
+  width: 1.2em;
+  height: 1.2em;
+}
+.form-privacy {
+  font-size: 0.92rem;
+  color: var(--color-muted);
+  margin: 18px 0;
+}
+.btn-main:disabled {
+  opacity: 0.7;
+  cursor: progress;
+}
+
+/* Error summary ("There is a problem") above a form. */
+.form-alert {
+  border: 2px solid var(--color-error);
+  border-left-width: 6px;
+  border-radius: var(--radius-sm);
+  padding: 16px 20px;
+  margin-bottom: 22px;
+  background: #fff;
+}
+.form-alert:focus {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
+.form-alert-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-size: 1.05rem;
+  color: var(--color-error);
+}
+.form-alert ul {
+  margin: 10px 0 0;
+  padding-left: 22px;
+}
+.form-alert a {
+  color: var(--color-error);
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+/* Shown instead of the form after a successful submission. */
+.form-success-box {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 18px 20px;
+  border-radius: var(--radius-sm);
+  border-left: 6px solid var(--color-primary);
+  background: var(--color-primary-soft);
+  color: var(--color-heading);
+  font-weight: 500;
+}
+.form-success-box:focus {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
+.form-success-icon {
+  flex-shrink: 0;
+  font-size: 1.4rem;
+  color: var(--color-primary-dark);
+}
+
+/* Honeypot: off screen rather than display:none, which some bots skip. */
+.form-trap {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* Event booking in the sidebar. */
+.booking-panel {
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid var(--color-border);
+}
+.booking-panel .form-alert-title {
+  font-size: 1rem;
+}
+
+/* Newsletter in the footer (dark background). */
+.footer-newsletter {
+  margin-top: 40px;
+  padding: 28px 0 40px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+.footer-newsletter h2 {
+  margin-bottom: 6px;
+}
+.newsletter-row {
+  display: flex;
+  gap: 10px;
+}
+.newsletter-row .form-control {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.newsletter-row .btn-main {
+  flex-shrink: 0;
+  justify-content: center;
+}
+.newsletter-form .field-error {
+  margin: 8px 0 0;
+  color: var(--color-error-on-dark);
+}
+.newsletter-form .form-control[aria-invalid="true"] {
+  border-color: var(--color-error-on-dark);
+}
+@media (max-width: 575.98px) {
+  .newsletter-row {
+    flex-direction: column;
+  }
+}
