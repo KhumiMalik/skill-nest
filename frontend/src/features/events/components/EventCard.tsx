@@ -29,6 +29,15 @@ export function EventCard({ event }: { event: EventSummary }) {
             {event.location}
           </li>
         </ul>
+        <div className="ev-actions">
+          <Link href={`/events/${event.slug}`} className="btn-pill">
+            Learn More<span className="visually-hidden">: {event.title}</span>
+          </Link>
+          {/* A plain <a download>: the .ics file is a route handler, not a page to navigate to. */}
+          <a href={`/events/${event.slug}/calendar.ics`} download className="btn-pill-outline">
+            <Icon name="calendar-plus" /> Add to Calendar<span className="visually-hidden">: {event.title}</span>
+          </a>
+        </div>
       </div>
     </article>
   );

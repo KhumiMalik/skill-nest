@@ -1,12 +1,30 @@
-import type { EventSummary } from "@/features/events";
+import type { SchoolEvent } from "@/features/events";
+import type { ContentBlock } from "@/lib/api/schemas";
 import { placeholderImage } from "../utils";
+
+const p = (text: string): ContentBlock => ({ type: "paragraph", text });
+const list = (...items: string[]): ContentBlock => ({ type: "list", items });
+const callout = (title: string, text: string): ContentBlock => ({ type: "callout", title, text });
 
 function image(label: string, alt: string) {
   return placeholderImage(800, 500, label, alt);
 }
 
+const organizers = {
+  events: { name: "Mrs Joanna Ellis", role: "Events Coordinator", email: "events@greenfield-academy.example" },
+  admissions: { name: "Admissions Team", role: "Admissions", email: "admissions@greenfield-academy.example" },
+  sixthForm: { name: "Mr David Okonkwo", role: "Head of Sixth Form", email: "sixthform@greenfield-academy.example" },
+  sport: { name: "Mr Jack Harrison", role: "Director of Sport", email: "sport@greenfield-academy.example" },
+  music: { name: "Ms Olivia Grant", role: "Director of Music", email: "music@greenfield-academy.example" },
+  academic: { name: "Mr James Thornton", role: "Deputy Head (Academic)", email: "academic@greenfield-academy.example" },
+  science: { name: "Dr Amelia Hart", role: "Head of Science", email: "science@greenfield-academy.example" },
+  arts: { name: "Mr Felix Morgan", role: "Head of Art & Design", email: "art@greenfield-academy.example" },
+  pa: { name: "Parents' Association", role: "Volunteer committee", email: "pa@greenfield-academy.example" },
+  alumni: { name: "Mrs Rachel Bennett", role: "Alumni Relations Manager", email: "alumni@greenfield-academy.example" },
+};
+
 /** The 2026-27 school year. Times are UTC (the school's time zone). */
-export const events: EventSummary[] = [
+export const events: SchoolEvent[] = [
   {
     slug: "welcome-back-family-picnic-2026",
     title: "Welcome Back Family Picnic",
@@ -16,6 +34,21 @@ export const events: EventSummary[] = [
     endsAt: "2026-09-06T15:00:00Z",
     location: "School Field",
     image: image("Family picnic", "Families enjoying a picnic on the school field"),
+    featured: false,
+    description: [
+      p(
+        "Our traditional start-of-year picnic is a chance for new and returning families to meet each other, staff and the Parents' Association.",
+      ),
+      p("Bring a picnic and a blanket; drinks, ice cream and games are provided."),
+    ],
+    schedule: [
+      { time: "12:00", title: "Welcome", text: "Introduction from the Head and the Parents' Association." },
+      { time: "12:30", title: "Picnic and music", text: "Live music from the school jazz band." },
+      { time: "14:00", title: "Family games", text: "Sack races, tug of war and the famous staff egg-and-spoon race." },
+    ],
+    organizer: organizers.pa,
+    cost: "Free",
+    registration: null,
   },
   {
     slug: "sixth-form-open-evening-2026",
@@ -26,6 +59,19 @@ export const events: EventSummary[] = [
     endsAt: "2026-09-24T20:30:00Z",
     location: "Sixth Form Centre",
     image: image("Sixth Form open evening", "Visitors talking to Sixth Form students"),
+    featured: false,
+    description: [
+      p(
+        "Find out what life is like in the Greenfield Sixth Form. Subject teachers will be on hand to talk about each of our 26 A Level subjects, and current students will lead tours of the Sixth Form Centre.",
+      ),
+    ],
+    schedule: [
+      { time: "18:00", title: "Talk from the Head of Sixth Form", text: "Main Hall." },
+      { time: "18:30", title: "Subject fair and tours", text: "Meet teachers and students in the Sixth Form Centre." },
+    ],
+    organizer: organizers.sixthForm,
+    cost: "Free",
+    registration: { deadline: "2026-09-23T12:00:00Z" },
   },
   {
     slug: "harvest-festival-assembly-2026",
@@ -36,6 +82,20 @@ export const events: EventSummary[] = [
     endsAt: "2026-10-09T10:00:00Z",
     location: "Main Hall",
     image: image("Harvest festival", "Food donations collected at the harvest festival"),
+    featured: false,
+    description: [
+      p(
+        "Our Harvest Festival brings the whole Primary school together for songs, poems and readings. Families are warmly invited to join us.",
+      ),
+      callout(
+        "Donations",
+        "Please send in tinned food, pasta, rice, cereal or toiletries during the week before. Everything goes to the Greenfield Food Bank.",
+      ),
+    ],
+    schedule: [],
+    organizer: organizers.events,
+    cost: "Free",
+    registration: null,
   },
   {
     slug: "whole-school-open-morning-october-2026",
@@ -46,6 +106,28 @@ export const events: EventSummary[] = [
     endsAt: "2026-10-17T12:30:00Z",
     location: "Main Reception",
     image: image("Open morning", "A pupil guide showing visitors around the school"),
+    featured: true,
+    description: [
+      p(
+        "Our Open Morning is the best way to get a feel for Greenfield. Pupil guides will show you around the school while lessons are taking place, and you can meet teachers from every department.",
+      ),
+      p("The Head will speak at 10.00 am and 11.30 am, followed by questions."),
+      list(
+        "Tours of the Early Years and Primary school",
+        "Science demonstrations in the Science & Innovation Centre",
+        "Music and drama performances in the theatre",
+        "Information about admissions and bursaries",
+      ),
+    ],
+    schedule: [
+      { time: "09:30", title: "Doors open", text: "Arrive at Main Reception for coffee and a welcome pack." },
+      { time: "10:00", title: "Talk from the Head", text: "Greenfield Theatre." },
+      { time: "10:30", title: "Pupil-led tours", text: "Tours leave every 15 minutes." },
+      { time: "11:30", title: "Second talk from the Head", text: "Greenfield Theatre." },
+    ],
+    organizer: organizers.admissions,
+    cost: "Free",
+    registration: { deadline: "2026-10-15T17:00:00Z", capacity: 300 },
   },
   {
     slug: "under-15-county-cup-final-2026",
@@ -56,7 +138,19 @@ export const events: EventSummary[] = [
     startsAt: "2026-10-21T15:30:00Z",
     endsAt: "2026-10-21T17:30:00Z",
     location: "Riverside Sports Ground",
+    address: "Riverside Road, Greenfield GF2 7RS",
     image: image("County Cup final", "The under-15 football team warming up"),
+    featured: false,
+    description: [
+      p(
+        "Our under-15 football team plays St Edmund's College in the County Cup final. Pupils, parents and staff are all welcome to come and cheer them on.",
+      ),
+      callout("Supporters' coach", "A free coach leaves school at 2.45 pm and returns by 6.15 pm. Seats are limited."),
+    ],
+    schedule: [],
+    organizer: organizers.sport,
+    cost: "Free",
+    registration: { deadline: "2026-10-19T12:00:00Z", capacity: 50 },
   },
   {
     slug: "autumn-orchestra-concert-2026",
@@ -67,6 +161,20 @@ export const events: EventSummary[] = [
     endsAt: "2026-11-12T21:00:00Z",
     location: "Greenfield Theatre",
     image: image("Orchestra concert", "The Junior Orchestra tuning up on stage"),
+    featured: false,
+    description: [
+      p(
+        "An evening of orchestral music, from Holst's Jupiter to John Williams' Star Wars suite. The Junior Orchestra opens the concert, with the Senior Orchestra after the interval.",
+      ),
+    ],
+    schedule: [
+      { time: "19:00", title: "Junior Orchestra", text: "" },
+      { time: "19:45", title: "Interval", text: "Refreshments in the foyer." },
+      { time: "20:05", title: "Senior Orchestra", text: "" },
+    ],
+    organizer: organizers.music,
+    cost: "£8 adults, £4 pupils",
+    registration: { deadline: "2026-11-11T17:00:00Z", capacity: 300 },
   },
   {
     slug: "year-11-parents-evening-2026",
@@ -77,6 +185,16 @@ export const events: EventSummary[] = [
     endsAt: "2026-11-19T19:30:00Z",
     location: "Main Hall",
     image: image("Parents evening", "A teacher talking with parents"),
+    featured: false,
+    description: [
+      p(
+        "Five-minute appointments with each of your child's subject teachers. Appointments are booked online; details will be emailed three weeks before.",
+      ),
+    ],
+    schedule: [],
+    organizer: organizers.academic,
+    cost: "Free",
+    registration: null,
   },
   {
     slug: "christmas-fair-2026",
@@ -87,6 +205,20 @@ export const events: EventSummary[] = [
     endsAt: "2026-12-05T15:00:00Z",
     location: "Main Hall and Courtyard",
     image: image("Christmas fair", "Families browsing stalls at the Christmas fair"),
+    featured: false,
+    description: [
+      p(
+        "Our much-loved Christmas Fair returns with more than 40 stalls, a tombola, a grotto and carols from the Primary choir. All proceeds support projects chosen by the pupil council.",
+      ),
+    ],
+    schedule: [
+      { time: "11:00", title: "Fair opens", text: "" },
+      { time: "12:00", title: "Primary choir", text: "Carols in the courtyard." },
+      { time: "14:30", title: "Grand raffle draw", text: "" },
+    ],
+    organizer: organizers.pa,
+    cost: "Free entry",
+    registration: null,
   },
   {
     slug: "carol-service-2026",
@@ -96,7 +228,19 @@ export const events: EventSummary[] = [
     startsAt: "2026-12-16T18:00:00Z",
     endsAt: "2026-12-16T19:30:00Z",
     location: "St Mary's Church",
+    address: "Church Street, Greenfield GF1 4SM",
     image: image("Carol service", "The Chamber Choir singing by candlelight"),
+    featured: false,
+    description: [
+      p(
+        "Join us at St Mary's Church for nine lessons and carols, with readings from pupils and staff and music from the Chamber Choir.",
+      ),
+      callout("Seating", "Doors open at 5.30 pm. Seats are not reserved."),
+    ],
+    schedule: [],
+    organizer: organizers.music,
+    cost: "Free (retiring collection for charity)",
+    registration: null,
   },
   {
     slug: "year-13-mock-examinations-2027",
@@ -107,6 +251,14 @@ export const events: EventSummary[] = [
     endsAt: "2027-01-22T16:00:00Z",
     location: "Examination Hall",
     image: image("Examination hall", "Desks set out in the examination hall"),
+    featured: false,
+    description: [
+      p("Year 13 sit mock examinations in every A Level subject. Individual timetables are issued before Christmas."),
+    ],
+    schedule: [],
+    organizer: organizers.academic,
+    cost: "Free",
+    registration: null,
   },
   {
     slug: "inter-house-swimming-gala-2027",
@@ -117,6 +269,12 @@ export const events: EventSummary[] = [
     endsAt: "2027-02-04T16:00:00Z",
     location: "Aquatics Centre",
     image: image("Swimming gala", "Swimmers diving in at the start of a race"),
+    featured: false,
+    description: [p("Swimmers from Years 7 to 13 race for their houses. Spectators are welcome in the gallery.")],
+    schedule: [],
+    organizer: organizers.sport,
+    cost: "Free",
+    registration: null,
   },
   {
     slug: "science-week-showcase-2027",
@@ -127,6 +285,20 @@ export const events: EventSummary[] = [
     endsAt: "2027-03-11T18:00:00Z",
     location: "Science & Innovation Centre",
     image: image("Science Week", "A pupil demonstrating an experiment to visitors"),
+    featured: false,
+    description: [
+      p(
+        "The finale of Science Week: more than 50 projects from pupils across the school, live demonstrations and a talk from a visiting astrophysicist.",
+      ),
+    ],
+    schedule: [
+      { time: "14:00", title: "Project exhibition opens", text: "" },
+      { time: "16:30", title: "Guest lecture", text: "Life on other planets." },
+      { time: "17:30", title: "Prize giving", text: "" },
+    ],
+    organizer: organizers.science,
+    cost: "Free",
+    registration: null,
   },
   {
     slug: "spring-musical-wizard-of-oz-2027",
@@ -137,6 +309,17 @@ export const events: EventSummary[] = [
     endsAt: "2027-03-25T21:30:00Z",
     location: "Greenfield Theatre",
     image: image("Spring musical", "Cast members rehearsing The Wizard of Oz"),
+    featured: true,
+    description: [
+      p(
+        "Follow the yellow brick road with a cast of more than 80 pupils, a live pit band and a set built by our Design and Technology students.",
+      ),
+      callout("Tickets", "Tickets go on sale on 1 February. Each family may book up to six seats."),
+    ],
+    schedule: [],
+    organizer: organizers.music,
+    cost: "£10 adults, £5 pupils",
+    registration: { deadline: "2027-03-24T17:00:00Z", capacity: 300 },
   },
   {
     slug: "charity-fun-run-2027",
@@ -148,6 +331,17 @@ export const events: EventSummary[] = [
     endsAt: "2027-04-24T13:00:00Z",
     location: "School Field",
     image: image("Charity fun run", "Runners setting off on the charity fun run"),
+    featured: false,
+    description: [
+      p("Run, jog or walk 5 km around the school grounds. Fancy dress is encouraged and dogs on leads are welcome."),
+    ],
+    schedule: [
+      { time: "10:00", title: "Warm-up", text: "Led by the PE department." },
+      { time: "10:30", title: "Race start", text: "" },
+    ],
+    organizer: organizers.pa,
+    cost: "£5 entry per runner",
+    registration: { deadline: "2027-04-22T17:00:00Z" },
   },
   {
     slug: "sports-day-2027",
@@ -158,6 +352,19 @@ export const events: EventSummary[] = [
     endsAt: "2027-06-18T15:30:00Z",
     location: "Athletics Track",
     image: image("Sports Day", "Pupils racing on the athletics track"),
+    featured: false,
+    description: [
+      p("A full day of athletics for every year group. Parents are welcome to watch from the spectator area."),
+    ],
+    schedule: [
+      { time: "09:00", title: "Primary events", text: "" },
+      { time: "12:00", title: "Lunch", text: "Picnic on the field." },
+      { time: "13:00", title: "Senior School events", text: "" },
+      { time: "15:00", title: "House relay finals", text: "" },
+    ],
+    organizer: organizers.sport,
+    cost: "Free",
+    registration: null,
   },
   {
     slug: "summer-arts-exhibition-2027",
@@ -169,5 +376,118 @@ export const events: EventSummary[] = [
     endsAt: "2027-06-24T20:00:00Z",
     location: "Art Studios",
     image: image("Arts exhibition", "Visitors looking at pupils' paintings"),
+    featured: false,
+    description: [p("Our annual exhibition fills the Art Studios with work from Nursery to Year 13.")],
+    schedule: [],
+    organizer: organizers.arts,
+    cost: "Free",
+    registration: null,
+  },
+  // Alumni events (listed on /alumni too).
+  {
+    slug: "alumni-careers-evening-2026",
+    title: "Alumni Careers Evening",
+    summary:
+      "Former pupils from medicine, law, engineering, the arts and start-ups talk to Sixth Formers about their careers.",
+    category: "alumni",
+    startsAt: "2026-11-18T18:30:00Z",
+    endsAt: "2026-11-18T20:30:00Z",
+    location: "Sixth Form Centre",
+    image: image("Careers evening", "A former pupil talking to a group of Sixth Formers"),
+    featured: false,
+    description: [
+      p(
+        "Each year we invite around twenty former pupils back to share how they found their way into their careers, and what they wish they had known at seventeen.",
+      ),
+      p(
+        "Sixth Formers rotate between small-group tables, so everyone gets to ask questions. Alumni who would like to host a table are very welcome.",
+      ),
+      callout("Volunteer as a speaker", "Email the Alumni Office with your profession and the year you left."),
+    ],
+    schedule: [
+      { time: "18:30", title: "Welcome and refreshments", text: "Sixth Form Centre café." },
+      { time: "18:50", title: "Careers tables", text: "Three 25-minute rounds." },
+      { time: "20:15", title: "Closing remarks", text: "" },
+    ],
+    organizer: organizers.alumni,
+    cost: "Free",
+    registration: { deadline: "2026-11-11T17:00:00Z", capacity: 120 },
+  },
+  {
+    slug: "london-alumni-drinks-2026",
+    title: "London Alumni Christmas Drinks",
+    summary: "Our annual festive get-together for former pupils and staff, in the heart of the City.",
+    category: "alumni",
+    startsAt: "2026-12-03T18:30:00Z",
+    endsAt: "2026-12-03T21:00:00Z",
+    location: "The Old Bank, Holborn, London",
+    address: "12 High Holborn, London WC1V 6AA",
+    image: image("Alumni drinks", "Former pupils chatting at an evening reception"),
+    featured: false,
+    description: [
+      p(
+        "Catch up with old friends and former teachers over a drink and canapés. Everyone who has left Greenfield is welcome, whenever they left.",
+      ),
+      p("The venue is a five-minute walk from Chancery Lane station and has step-free access."),
+    ],
+    schedule: [],
+    organizer: organizers.alumni,
+    cost: "£15 (includes two drinks and canapés)",
+    registration: { deadline: "2026-11-26T17:00:00Z", capacity: 150 },
+  },
+  {
+    slug: "alumni-mentoring-breakfast-2027",
+    title: "Alumni Mentoring Breakfast",
+    summary: "Meet the Sixth Formers you will mentor this year, and find out how the mentoring programme works.",
+    category: "alumni",
+    startsAt: "2027-02-05T07:45:00Z",
+    endsAt: "2027-02-05T09:00:00Z",
+    location: "Library",
+    image: image("Mentoring breakfast", "Alumni mentors and pupils talking over breakfast in the library"),
+    featured: false,
+    description: [
+      p(
+        "Our mentoring programme pairs Year 12 pupils with former pupils working in the field they hope to enter. This breakfast is the first meeting of the year.",
+      ),
+      p("New mentors receive a short briefing and the school's safeguarding guidance before meeting their mentee."),
+    ],
+    schedule: [
+      { time: "07:45", title: "Breakfast and mentor briefing", text: "" },
+      { time: "08:15", title: "Meet your mentee", text: "" },
+    ],
+    organizer: organizers.alumni,
+    cost: "Free",
+    registration: { deadline: "2027-01-29T17:00:00Z", capacity: 40 },
+  },
+  {
+    slug: "alumni-reunion-day-2027",
+    title: "Alumni Reunion Day",
+    summary:
+      "Tours of the campus, a cricket match against the school's 1st XI and a summer lunch. Special welcome to the classes of 1977, 1987, 1997, 2007 and 2017.",
+    category: "alumni",
+    startsAt: "2027-06-19T11:00:00Z",
+    endsAt: "2027-06-19T16:00:00Z",
+    location: "Main Hall and School Field",
+    image: image("Reunion day", "Former pupils posing for a group photo in front of the main building"),
+    featured: false,
+    description: [
+      p(
+        "Our biggest alumni event of the year. Come back to see how the school has changed, meet old friends and hear from the Head about Greenfield's plans.",
+      ),
+      list(
+        "Guided tours led by current Sixth Formers",
+        "Alumni XI v School 1st XI cricket match",
+        "Archive display: fifty years of Greenfield in photographs",
+      ),
+    ],
+    schedule: [
+      { time: "11:00", title: "Arrival and coffee", text: "Main Hall." },
+      { time: "11:30", title: "Campus tours", text: "" },
+      { time: "13:00", title: "Summer lunch", text: "Marquee on the School Field." },
+      { time: "14:30", title: "Cricket match", text: "" },
+    ],
+    organizer: organizers.alumni,
+    cost: "£25 adults, children free",
+    registration: { deadline: "2027-06-04T17:00:00Z", capacity: 250 },
   },
 ];
